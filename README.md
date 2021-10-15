@@ -1,5 +1,5 @@
 # Ethereum Blockchain Smart Contract Course
-## by [Tertiary Infotech Pte. Ltd](https://www.tertiarycourses.com.sg/)
+## by [Tertiary Courses](https://www.tertiarycourses.com.sg/)
 
 These are the exercise files used for [Ethereum Blockchain Smart Contract Course](https://www.tertiarycourses.com.sg/ethereum-smart-contract-course.html) course. 
 
