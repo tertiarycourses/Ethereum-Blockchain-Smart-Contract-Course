@@ -45,7 +45,7 @@ contract Hello {
    
 }
 
-#  Contractor demo
+#  Contructor demo
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
 
@@ -83,7 +83,7 @@ contract Hello {
     }  
 }
 
-# constant 
+# Constant 
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0 <0.9.0;
 
@@ -91,7 +91,7 @@ contract MyContract {
     string public constant myString= "Hello"; 
 }
 
-# data types
+# Data Types
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0 <0.9.0;
 
@@ -105,7 +105,7 @@ contract MyContract {
         
 }
 
-# enum
+# Enum
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0 <0.9.0;
 
@@ -126,6 +126,33 @@ contract MyContract {
     }        
 }
 
+# Actitivy: Enum
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.9.0;
+
+contract TrafficLight {
+
+    enum TrafficLightState {Red, Green, Orange}
+    TrafficLightState public state;
+
+    constructor() {
+        state = TrafficLightState.Red;
+    }
+
+    function RedLight() public {
+        state = TrafficLightState.Red;
+    }
+    
+    function GreenLight() public {
+        state = TrafficLightState.Green;
+    }
+    
+    function OrangeLight() public {
+        state = TrafficLightState.Orange;
+    }
+}
+
+
 # Struct
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
@@ -133,55 +160,56 @@ pragma solidity >=0.7.0 <0.9.0;
 contract Hello {
     struct Person {
         string name;
-        uint256 age;
+        uint8 age;
     }
     
     Person[] public person;
     
-    function addPerson(string memory _name, uint256 _age) public {
+    function addPerson(string memory _name, uint8 _age) public {
          person.push(Person(_name,_age));
     }
 
 }
 
 # Activity: Struct
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
 
-contract MyContract {
+contract Hello {
     struct Person {
-        string _firstname;
-        string _lastname;
+        string firstname;
+        string lastname;
+        uint8 age;
+        uint8 height;
     }
 
     Person[] public person;
     
-    function addPerson(string memory _firstName, string memory _lastName) public {
-        person.push(Person(_firstName, _lastName));
-
+    function addPerson(string memory _firstname, string memory _lastname, uint8 _age, uint8 _height) public {
+         person.push(Person(_firstname,_lastname,_age,_height));
     }
-        
+
 }
 
-# Activity: Count no of people
-// SPDX-License-Identifier: MIT
+# Activity: Count No of People
+// SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
 
-contract MyContract {
-
+contract Hello {
     struct Person {
-        string _firstname;
-        string _lastname;
+        string firstname;
+        string lastname;
+        uint8 age;
+        uint8 height;
     }
 
     Person[] public person;
-    uint256 public peopleCount;
+    uint8 public peopleCount;
     
-    function addPerson(string memory _firstName, string memory _lastName) public {
-        person.push(Person(_firstName, _lastName));
-        peopleCount += 1;
+    function addPerson(string memory _firstname, string memory _lastname, uint8 _age, uint8 _height) public {
+         person.push(Person(_firstname,_lastname,_age,_height));
+         peopleCount += 1;
     }
-        
 }
 
 # Mapping
@@ -190,9 +218,9 @@ pragma solidity >=0.7.0 <0.9.0;
 
 contract Hello {
     
- mapping(string => uint256) public person;
+ mapping(string => uint8) public person;
     
- function addPerson(string memory _name, uint256 _age) public {
+ function addPerson(string memory _name, uint8 _age) public {
          person[_name] = _age;
     }
 }
@@ -204,13 +232,13 @@ pragma solidity >=0.7.0 <0.9.0;
 contract MyContract {
     
     struct Person {
-        uint _id;
+        uint8 _id;
         string _firstname;
         string _lastname;
     }
 
-    mapping(uint => Person) public people;
-    uint256 public peopleCount = 0;
+    mapping(uint8 => Person) public people;
+    uint8 public peopleCount = 0;
     
     function addPerson(string memory _firstName, string memory _lastName) public {
          people[peopleCount] = Person(peopleCount,_firstName, _lastName);
@@ -256,42 +284,37 @@ contract FundMe {
     }
 }
 
-
 # Activity Function Modifier
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.6.6 <0.9.0;
+pragma solidity >=0.7.0 <0.9.0;
 
 contract MyContract {
 
     struct Person {
-        uint _id;
+        uint8 _id;
         string _firstname;
         string _lastname;
     }
-
-    mapping(uint => Person) public people;
-    uint256 public peopleCount;
-    address owner;
     
-    modifier onlyOwner {
-        require(msg.sender == owner);
-        _;
-    }
+    address public owner;
     
     constructor() {
         owner = msg.sender;
     }
     
-    function addPerson(string memory _firstName, string memory _lastName) public  onlyOwner {
-         people[peopleCount] = Person(peopleCount,_firstName, _lastName);
-         incrementCount();
-    
+    modifier onlyOwner() {
+        require(owner == msg.sender);
+        _;
     }
+
+    mapping(uint8 => Person) public people;
+    uint8 public peopleCount = 0;
     
-    function incrementCount() internal {
+    function addPerson(string memory _firstName, string memory _lastName) public onlyOwner {
+         people[peopleCount] = Person(peopleCount,_firstName, _lastName);
          peopleCount += 1;
     }
-         
+        
 }
 
 # Transfer Function
@@ -420,5 +443,65 @@ contract Token  {
    }
         
 }
+
+
+## Inheritance
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <0.9.0;
+
+contract ERC20Token {
+    string public name;
+    mapping (address => uint256) public balances;
+    
+    constructor(string memory _name) {
+        name = _name;
+    }
+    
+    function mint() public virtual {
+        balances[tx.origin] ++;
+    }
+
+## A Simple ERC20 Token with Inheritance
+contract ERC20Token {
+    mapping (address => uint256) public balances;
+    
+    event Transfer(address _from, address _to, uint256 _value); 
+    
+    constructor() {
+        balances[msg.sender] = 100; 
+    }
+    
+    function mint() public virtual {
+        balances[tx.origin] ++;
+    }
+}
+contract MyToken is ERC20Token  {
+    string public name;
+    string public symbol;
+    address[] public owners;
+     
+   constructor(string memory _symbol)  {
+        symbol = _symbol;
+    }
+    
+    function mint() public override(ERC20Token) {
+        super.mint();
+        owners.push(msg.sender);
+    }
+    
+    function sendCoin(address _receiver, uint _amount) public returns(bool sufficient) {
+        if (balances[msg.sender] < _amount) return false;  
+        balances[msg.sender] -= _amount;
+        balances[_receiver] += _amount;
+        
+        emit Transfer(msg.sender, _receiver, _amount); 
+        return true;
+    }
+    function getBalance(address _addr) public view returns(uint) { 
+        //balance check
+        return balances[_addr];  
+    }
+        
+}   
 
 

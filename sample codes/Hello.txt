@@ -1,0 +1,2 @@
+Hello.deployed().then(function(instance) {return instance.store(255) });
+Hello.deployed().then(function(instance) {return instance.retrieve() });
