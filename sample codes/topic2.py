@@ -1,4 +1,4 @@
-## Demo: Web3.py ##
+# Topic 2 : Web3.py
 
 from web3 import Web3
 
@@ -17,16 +17,15 @@ from web3 import Web3
 infura_url = "https://mainnet.infura.io/v3/XXXXXXX"
 web3 = Web3(Web3.HTTPProvider(infura_url))
 
-print(f'Connnected to Web3: {web3.isConnected()}')
-print(f'Latest block numebr: {web3.eth.blockNumber}')
-print(f'Latest gas price: {web3.eth.gasPrice}')
+print(web3.eth.getBlock(13439096))
 
 ## Demo: Check Wallet balnace ##
 
 from web3 import Web3
 
 ## Fill in your infura API key here
-infura_url = "https://mainnet.infura.io/v3/XXXXXXX"
+# infura_url = "https://mainnet.infura.io/v3/XXXXXXX"
+infuria_url= "https://rinkeby.infura.io/v3/XXXX"
 web3 = Web3(Web3.HTTPProvider(infura_url))
 
 # # Fill in your account here
@@ -77,7 +76,61 @@ print(f'Token Symbol: {contract.functions.symbol().call()}')
 print(f'Token Supply: {web3.fromWei(totalSupply, "ether")} ether')
 print(f'Token Balance: {web3.fromWei(balance, "ether")} ether')
 
-## Demo: Ganache ##
+## Demo: Compile Hello World Smart Contract on Ganache blockchain ##
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.9.0;
+
+contract Hello {
+    string public myString;
+    
+    function store(string memory _myString) public {
+         myString = _myString;
+    }
+    
+    function retrieve() public view returns(string memory) {
+        return myString;
+    }
+   
+}
+
+## Demo: Compile Hello World Smart Contract on Ganache blockchain ##
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.9.0;
+
+contract Hello {
+    string public myString;
+    
+    function store(string memory _myString) public {
+         myString = _myString;
+    }
+    
+    function retrieve() public view returns(string memory) {
+        return myString;
+    }
+   
+}
+
+# Activity: Transact Contract on Smart Contract
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.9.0;
+
+contract Storage {
+    uint256 myNum;
+
+    constructor() {
+         myNum = 5;
+    }
+
+    function store(uint256 num) public {
+        myNum = num;
+    }
+
+    function retrieve() public view returns (uint256){
+        return myNum;
+    }
+}
+
+## Demo: Transfer Etehr between 2 accounts on Ganache ##
 
 from web3 import Web3
 
@@ -85,29 +138,29 @@ ganache_url = "http://127.0.0.1:7545"
 web3 = Web3(Web3.HTTPProvider(ganache_url))
 
 account_1 = 'XXXX' # Fill me in
-account_2 = 'XXXXX # Fill me in
+account_2 = 'XXXX' # Fill me in
 private_key = 'XXXX' # Fill me in
 
 nonce = web3.eth.getTransactionCount(account_1)
 
-# Create the transaction
+# Step1: Create the transaction
 tx = {
     'nonce': nonce,
     'to': account_2,
-    'value': web3.toWei(3, 'ether'),
+    'value': web3.toWei(5, 'ether'),
     'gas': 2000000,
     'gasPrice': web3.toWei('50', 'gwei'),
 }
 
-# Sign the transaction
+# Step2: Sign the transaction
 signed_tx = web3.eth.account.signTransaction(tx, private_key)
 
-# Send the transaction
+# Step 3: Send the transaction
 tx_hash = web3.eth.sendRawTransaction(signed_tx.rawTransaction)
 
 print(web3.toHex(tx_hash))
 
-# Activity: Transactions between 2 accounts on Ganache ## 
+# Activity: Transfer Etehr between 2 accounts on Ganache ## 
 
 from web3 import Web3
 
@@ -137,7 +190,8 @@ tx_hash = web3.eth.sendRawTransaction(signed_tx.rawTransaction)
 
 print(web3.toHex(tx_hash))
 
-## Demo: Compile Hello World Smart Contract on Ganache blockchain ##
+# Test Transaction with Web3
+### Deploy the smart contract on Remix to Ganache
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
 
@@ -154,24 +208,39 @@ contract Hello {
    
 }
 
-## Demo: Compile Hello World Smart Contract on Ganache blockchain ##
-// SPDX-License-Identifier: GPL-3.0
-pragma solidity >=0.7.0 <0.9.0;
+### Get the contract address and abi from Remix, test transaction with web3 
+import json
+from web3 import Web3
 
-contract Hello {
-    string public myString;
-    
-    function store(string memory _myString) public {
-         myString = _myString;
-    }
-    
-    function retrieve() public view returns(string memory) {
-        return myString;
-    }
-   
-}
+## Connect to Ganahe
+ganache_url = "http://127.0.0.1:7545"
+web3 = Web3(Web3.HTTPProvider(ganache_url))
 
-#Activity: Transact Contract on Smart Contract
+# Set a default account to sign transaction
+web3.eth.defaultAccount = web3.eth.accounts[0]
+
+# Contract ABI
+abi = json.loads('[{"inputs":[],"name":"myString","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"retrieve","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"_myString","type":"string"}],"name":"store","outputs":[],"stateMutability":"nonpayable","type":"function"}]')
+
+# Contract address
+address = web3.toChecksumAddress('0xf3d789a8B6435D2Efa878eb139ceFe4b3a277494') # FILL ME IN
+
+# Initialize contract
+contract = web3.eth.contract(address=address, abi=abi)
+
+# Store value 
+tx_hash = contract.functions.store('Good Day').transact()
+
+# Wait for transaction to be mined
+web3.eth.waitForTransactionReceipt(tx_hash)
+
+# Retrieve value
+print(f'Retrive the value: {contract.functions.retrieve().call()}')
+
+
+# Acitivty: Test Transaction with Web3
+
+### Deploy the smart contract on Remix to Ganache
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
 
@@ -190,4 +259,42 @@ contract Storage {
         return myNum;
     }
 }
+
+### Get the contract address and abi from Remix, test transaction with web3
+import json
+from web3 import Web3
+
+# Set up web3 connection with Ganache
+import json
+from web3 import Web3
+
+# Set up web3 connection with Ganache
+ganache_url = "http://127.0.0.1:7545"
+web3 = Web3(Web3.HTTPProvider(ganache_url))
+
+# Set a default account to sign transaction
+web3.eth.defaultAccount = web3.eth.accounts[0]
+
+# Contract ABI
+abi = json.loads('[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"retrieve","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"num","type":"uint256"}],"name":"store","outputs":[],"stateMutability":"nonpayable","type":"function"}]')
+
+# Contract address
+address = web3.toChecksumAddress('0x89F770e449653f1A9977B0DE1132d245c8AD0Feb')
+
+# Initialize contract
+contract = web3.eth.contract(address=address, abi=abi)
+
+# Store value 
+tx_hash = contract.functions.store(255).transact()
+
+# Wait for transaction to be mined
+web3.eth.waitForTransactionReceipt(tx_hash)
+
+# Retrieve value
+print(f'Retrive the value: {contract.functions.retrieve().call()}')
+
+
+
+
+
 

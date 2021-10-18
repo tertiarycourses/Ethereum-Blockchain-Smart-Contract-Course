@@ -1,106 +1,168 @@
-# Deploy Smart Contract on Ganache Demo
+# Topic 3: Deployment
 
-### Solidity ###
-// SPDX-License-Identifier: GPL-3.0
-pragma solidity >=0.7.0 <0.9.0;
-
-contract Hello {
-    string public myString;
-    
-    function store(string memory _myString) public {
-         myString = _myString;
-    }
-    
-    function retrieve() public view returns(string memory) {
-        return myString;
-    }
-   
-}
-
-### Web3 ###
+# Compile and Deploy contract on Ganache with Python
 import json
 from web3 import Web3
+from solcx import compile_standard, install_solc
+
+# We add these two lines that we forgot from the video!
+print("Installing...")
+install_solc("0.8.9")
 
 # Set up web3 connection with Ganache
 ganache_url = "http://127.0.0.1:7545"
 web3 = Web3(Web3.HTTPProvider(ganache_url))
+chain_id = 1337
 
 # Set a default account to sign transaction
-web3.eth.defaultAccount = web3.eth.accounts[0]
+my_address = "0x0fca61a0173FaAec7A64D39c20a1397b361B36B9"
+private_key = '4fa754ce854e8e902916b961df6bcca50dd717875843b2e00f65dd3cfd492ba0'
 
-# Contract ABI
-abi = json.loads('[{"inputs":[],"name":"myString","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"retrieve","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"_myString","type":"string"}],"name":"store","outputs":[],"stateMutability":"nonpayable","type":"function"}]')
+with open("./SimpleStorage.sol", "r") as file:
+    simple_storage_file = file.read()
 
-# Contract address
-address = web3.toChecksumAddress('0xf3d789a8B6435D2Efa878eb139ceFe4b3a277494') # FILL ME IN
+# Solidity source code
+compiled_sol = compile_standard(
+    {
+        "language": "Solidity",
+        "sources": {"SimpleStorage.sol": {"content": simple_storage_file}},
+        "settings": {
+            "outputSelection": {
+                "*": {
+                    "*": ["abi", "metadata", "evm.bytecode", "evm.bytecode.sourceMap"]
+                }
+            }
+        },
+    },
+    solc_version="0.8.9",
+)
+ 
+# get bytecode
+bytecode = compiled_sol["contracts"]["SimpleStorage.sol"]["Hello"]["evm"]["bytecode"]["object"]
 
-# Initialize contract
-contract = web3.eth.contract(address=address, abi=abi)
-
-# Store value 
-tx_hash = contract.functions.store('Good Day').transact()
-
-# Wait for transaction to be mined
-web3.eth.waitForTransactionReceipt(tx_hash)
-
-# Retrieve value
-print(f'Retrive the value: {contract.functions.retrieve().call()}')
-
-
-# Acitivty: Deploy Smart Contract on Ganache
-
-### Solidity ###
-// SPDX-License-Identifier: GPL-3.0
-pragma solidity >=0.7.0 <0.9.0;
-
-contract Storage {
-    uint256 myNum;
-
-    constructor() {
-         myNum = 5;
-    }
-
-    function store(uint256 num) public {
-        myNum = num;
-    }
-
-    function retrieve() public view returns (uint256){
-        return myNum;
-    }
-}
-
-### Web3 #####
-import json
-from web3 import Web3
-
-# Set up web3 connection with Ganache
-import json
-from web3 import Web3
-
-# Set up web3 connection with Ganache
-ganache_url = "http://127.0.0.1:7545"
-web3 = Web3(Web3.HTTPProvider(ganache_url))
-
-# Set a default account to sign transaction
-web3.eth.defaultAccount = web3.eth.accounts[0]
-
-# Contract ABI
-abi = json.loads('[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"retrieve","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"num","type":"uint256"}],"name":"store","outputs":[],"stateMutability":"nonpayable","type":"function"}]')
-
-# Contract address
-address = web3.toChecksumAddress('0x89F770e449653f1A9977B0DE1132d245c8AD0Feb')
+# get abi
+abi = json.loads(compiled_sol["contracts"]["SimpleStorage.sol"]["Hello"]["metadata"])["output"]["abi"]
 
 # Initialize contract
-contract = web3.eth.contract(address=address, abi=abi)
+contract = web3.eth.contract(abi=abi, bytecode=bytecode)
+
+# Get the latest transaction
+nonce = web3.eth.getTransactionCount(my_address)
 
 # Store value 
-tx_hash = contract.functions.store(255).transact()
+transaction = contract.constructor().buildTransaction(
+    {"chainId": chain_id, "from": my_address, "nonce": nonce}
+)
 
-# Wait for transaction to be mined
-web3.eth.waitForTransactionReceipt(tx_hash)
+# Sign the contract transaction
+signed_txn = web3.eth.account.sign_transaction(transaction, private_key=private_key)
+print("Deploying Contract!")
 
-# Retrieve value
-print(f'Retrive the value: {contract.functions.retrieve().call()}')
+# Send the contract transaction
+tx_hash = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
+tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
+print(f"Done! Contract deployed to {tx_receipt.contractAddress}")  
+
+# Test Working with deployed Contracts with Web3
+
+# Access the deployed contract 
+contract = web3.eth.contract(address=tx_receipt.contractAddress, abi=abi)
+
+# Step 1: Create the transaction
+store_transaction = contract.functions.store("Good Afternoon").buildTransaction(
+  {"chainId": chain_id, "from": my_address, "nonce": nonce + 1})
+
+# Step 2: Sign the transaction
+signed_txn = web3.eth.account.sign_transaction(store_transaction, private_key=private_key)
+
+# Step 3: Send the transaction
+tx_greeting_hash = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
+tx_receipt = web3.eth.wait_for_transaction_receipt(tx_greeting_hash)
+
+# Retrieve the store value
+print(f'The store value is {contract.functions.retrieve().call()}')
+
+# Activity: Compile and Deploy Contract to Rinkeby testnet
+
+import json
+from web3 import Web3
+from solcx import compile_standard, install_solc
+import os
+
+# We add these two lines that we forgot from the video!
+print("Installing...")
+install_solc("0.8.9")
+
+# Set up web3 connection with Rinkeby
+rinkeby_url = "https://rinkeby-light.eth.linkpool.io/"
+web3 = Web3(Web3.HTTPProvider(rinkeby_url))
+chain_id = 4
+
+# Get your public address and private key from Metamask
+my_address = "XXX"
+private_key = 'XXXX'
+
+with open("./SimpleStorage.sol", "r") as file:
+    simple_storage_file = file.read()
+
+# Solidity source code
+compiled_sol = compile_standard(
+    {
+        "language": "Solidity",
+        "sources": {"SimpleStorage.sol": {"content": simple_storage_file}},
+        "settings": {
+            "outputSelection": {
+                "*": {
+                    "*": ["abi", "metadata", "evm.bytecode", "evm.bytecode.sourceMap"]
+                }
+            }
+        },
+    },
+    solc_version="0.8.9",
+)
+ 
+# get bytecode
+bytecode = compiled_sol["contracts"]["SimpleStorage.sol"]["Hello"]["evm"]["bytecode"]["object"]
+
+# get abi
+abi = json.loads(compiled_sol["contracts"]["SimpleStorage.sol"]["Hello"]["metadata"])["output"]["abi"]
+
+# Initialize contract
+contract = web3.eth.contract(abi=abi, bytecode=bytecode)
+
+# Get the latest transaction
+nonce = web3.eth.getTransactionCount(my_address)
+
+# Step 1: Create  the transaction
+transaction = contract.constructor().buildTransaction(
+    {"chainId": chain_id, "from": my_address, "nonce": nonce})
+
+# Step 2: Sign the transaction
+signed_txn = web3.eth.account.sign_transaction(transaction, private_key=private_key)
+
+# Step 3: Send the transaction
+tx_hash = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
+tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
+print(f"Done! Contract deployed to {tx_receipt.contractAddress}")   
+
+# Working with deployed Contracts
+contract = web3.eth.contract(address=tx_receipt.contractAddress, abi=abi)
+
+## Create the transaction
+tx_hash = contract.functions.store("Good Afternoon").buildTransaction(
+    {"chainId": chain_id, "from": my_address, "nonce": nonce + 1})
+
+## Signed the transaction
+signed_txn = web3.eth.account.sign_transaction(tx_hash, private_key=private_key)
+
+## Send the transaction
+tx_greeting_hash = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
+tx_receipt = web3.eth.wait_for_transaction_receipt(tx_greeting_hash)
+print(f"Done! Contract deployed to {tx_receipt.contractAddress}")   
+
+## Retrieve the store value
+print(contract.functions.retrieve().call())
+
 
 # Hello Coin
 ### Solidity #### 
@@ -188,185 +250,6 @@ web3.eth.waitForTransactionReceipt(tx_hash)
 print('Updated contract value: {}'.format(
     contract.functions.getBalance('0xCF716fAE671155d9663a8D2aC46BbBA4B537265d').call()
 ))
-
-# Compile and Deploy contract on Ganache with Python
-import json
-from web3 import Web3
-from solcx import compile_standard, install_solc
-
-# We add these two lines that we forgot from the video!
-print("Installing...")
-install_solc("0.8.9")
-
-# Set up web3 connection with Ganache
-ganache_url = "http://127.0.0.1:7545"
-web3 = Web3(Web3.HTTPProvider(ganache_url))
-chain_id = 1337
-
-# rinkeby_url = "https://rinkeby-light.eth.linkpool.io/"
-# web3 = Web3(Web3.HTTPProvider(rinkeby_url))
-# chain_id = 4
-
-# Set a default account to sign transaction
-my_address = "0x0fca61a0173FaAec7A64D39c20a1397b361B36B9"
-private_key = '4fa754ce854e8e902916b961df6bcca50dd717875843b2e00f65dd3cfd492ba0'
-
-with open("./SimpleStorage.sol", "r") as file:
-    simple_storage_file = file.read()
-
-# Solidity source code
-compiled_sol = compile_standard(
-    {
-        "language": "Solidity",
-        "sources": {"SimpleStorage.sol": {"content": simple_storage_file}},
-        "settings": {
-            "outputSelection": {
-                "*": {
-                    "*": ["abi", "metadata", "evm.bytecode", "evm.bytecode.sourceMap"]
-                }
-            }
-        },
-    },
-    solc_version="0.8.9",
-)
- 
-# get bytecode
-bytecode = compiled_sol["contracts"]["SimpleStorage.sol"]["Hello"]["evm"]["bytecode"]["object"]
-
-# get abi
-abi = json.loads(compiled_sol["contracts"]["SimpleStorage.sol"]["Hello"]["metadata"])["output"]["abi"]
-
-# Initialize contract
-contract = web3.eth.contract(abi=abi, bytecode=bytecode)
-
-# Get the latest transaction
-nonce = web3.eth.getTransactionCount(my_address)
-
-# Store value 
-transaction = contract.constructor().buildTransaction(
-    {"chainId": chain_id, "from": my_address, "nonce": nonce}
-)
-
-# Sign the transaction
-signed_txn = web3.eth.account.sign_transaction(transaction, private_key=private_key)
-print("Deploying Contract!")
-
-# Send the transaction
-tx_hash = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
-# Wait for the transaction to be mined, and get the transaction receipt
-print("Waiting for transaction to finish...")
-
-tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
-print(f"Done! Contract deployed to {tx_receipt.contractAddress}")   
-
-# Working with deployed Contracts
-simple_storage = web3.eth.contract(address=tx_receipt.contractAddress, abi=abi)
-#print(f"Initial Stored Value {simple_storage.functions.retrieve().call()}")
-
-store_transaction = simple_storage.functions.store("test").buildTransaction(
-    {"chainId": chain_id, "from": my_address, "nonce": nonce + 1}
-)
-signed_greeting_txn = web3.eth.account.sign_transaction(
-    store_transaction, private_key=private_key
-)
-
-tx_greeting_hash = web3.eth.send_raw_transaction(signed_greeting_txn.rawTransaction)
-print("Updating stored Value...")
-
-tx_receipt = web3.eth.wait_for_transaction_receipt(tx_greeting_hash)
-
-print(simple_storage.functions.retrieve().call())
-
-
-# Activity: Compile and Deploy Contract to Rinkeby testnet
-
-import json
-from web3 import Web3
-from solcx import compile_standard, install_solc
-import os
-
-# We add these two lines that we forgot from the video!
-print("Installing...")
-install_solc("0.8.9")
-
-# Set up web3 connection with Ganache
-# ganache_url = "http://127.0.0.1:7545"
-# web3 = Web3(Web3.HTTPProvider(ganache_url))
-# chain_id = 1337
-
-rinkeby_url = "https://rinkeby-light.eth.linkpool.io/"
-web3 = Web3(Web3.HTTPProvider(rinkeby_url))
-chain_id = 4
-
-# Set a default account to sign transaction
-my_address = "0x0fca61a0173FaAec7A64D39c20a1397b361B36B9"
-private_key = '4fa754ce854e8e902916b961df6bcca50dd717875843b2e00f65dd3cfd492ba0'
-
-with open("./SimpleStorage.sol", "r") as file:
-    simple_storage_file = file.read()
-
-# Solidity source code
-compiled_sol = compile_standard(
-    {
-        "language": "Solidity",
-        "sources": {"SimpleStorage.sol": {"content": simple_storage_file}},
-        "settings": {
-            "outputSelection": {
-                "*": {
-                    "*": ["abi", "metadata", "evm.bytecode", "evm.bytecode.sourceMap"]
-                }
-            }
-        },
-    },
-    solc_version="0.8.9",
-)
- 
-# get bytecode
-bytecode = compiled_sol["contracts"]["SimpleStorage.sol"]["Hello"]["evm"]["bytecode"]["object"]
-
-# get abi
-abi = json.loads(compiled_sol["contracts"]["SimpleStorage.sol"]["Hello"]["metadata"])["output"]["abi"]
-
-# Initialize contract
-contract = web3.eth.contract(abi=abi, bytecode=bytecode)
-
-# Get the latest transaction
-nonce = web3.eth.getTransactionCount(my_address)
-
-# Store value 
-transaction = contract.constructor().buildTransaction(
-    {"chainId": chain_id, "from": my_address, "nonce": nonce}
-)
-
-# Sign the transaction
-signed_txn = web3.eth.account.sign_transaction(transaction, private_key=private_key)
-print("Deploying Contract!")
-
-# Send the transaction
-tx_hash = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
-# Wait for the transaction to be mined, and get the transaction receipt
-print("Waiting for transaction to finish...")
-
-tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
-print(f"Done! Contract deployed to {tx_receipt.contractAddress}")   
-
-# Working with deployed Contracts
-simple_storage = web3.eth.contract(address=tx_receipt.contractAddress, abi=abi)
-#print(f"Initial Stored Value {simple_storage.functions.retrieve().call()}")
-
-store_transaction = simple_storage.functions.store("test").buildTransaction(
-    {"chainId": chain_id, "from": my_address, "nonce": nonce + 1}
-)
-signed_greeting_txn = web3.eth.account.sign_transaction(
-    store_transaction, private_key=private_key
-)
-
-tx_greeting_hash = web3.eth.send_raw_transaction(signed_greeting_txn.rawTransaction)
-print("Updating stored Value...")
-
-tx_receipt = web3.eth.wait_for_transaction_receipt(tx_greeting_hash)
-
-print(simple_storage.functions.retrieve().call())
 
 # Truffle
 
