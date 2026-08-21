@@ -1,57 +1,85 @@
-# Ethereum Blockchain Smart Contract Course
-## by [Tertiary Courses](https://www.tertiarycourses.com.sg/)
+<div align="center">
 
-These are the exercise files used for [Ethereum Blockchain Smart Contract Course](https://www.tertiarycourses.com.sg/ethereum-smart-contract-course.html) course. 
+# Generative AI (GenAI) Visuals in Photoshop and Firefly
 
-The course outline can be found in 
+[![Course](https://img.shields.io/badge/WSQ-TGS--2024045220-224AF4)](https://www.tertiarycourses.com.sg/wsq-generative-ai-genai-visuals-in-photoshop-and-firefly.html)
+![PowerPoint](https://img.shields.io/badge/PowerPoint-editable%20charts-EA4335)
+![Labs](https://img.shields.io/badge/labs-10-00A67E)
+![Version](https://img.shields.io/badge/courseware-v7-7C3AED)
 
-https://www.tertiarycourses.com.sg/ethereum-smart-contract-course.html
+**Source-aligned trainer slides, Learner Guide, Lesson Plan and self-contained Photoshop/Firefly labs.**
 
-https://www.tertiarycourses.com.my/ethereum-smart-contract-course-malaysia.html
+[Course page](https://www.tertiarycourses.com.sg/wsq-generative-ai-genai-visuals-in-photoshop-and-firefly.html) · [Open lab folders](labs/README.md) · [Learner Guide](LEARNER-GUIDE.md)
 
-<p><strong>Module 1 Blockchain Primer</strong></p>
-<ul>
-<li>What is Blockchain</li>
-<li>How Blockchain Work</li>
-<li>Hash Function for PoW and Blocks</li>
-<li>Secure Transaction with Public Key Cryptography</li>
-<li>Blockchain Platforms - Ethereum vs Hyperledger Fabric</li>
-</ul>
-<p><strong>Module 2 Ethereum Blockchain</strong></p>
-<ul>
-<li>What is Ethereum</li>
-<li>DApps and Ethereum Virtual Machine (EVM)</li>
-<li>Ether and Gas</li>
-<li>MetaMask - Send and Receive Ether</li>
-<li>EtherScan - Check Blockchain Transactions</li>
-</ul>
-<p><strong>Module 3 Solidity Programming Primer</strong></p>
-<ul>
-<li>What is Solidity</li>
-<li>Remix IDE</li>
-<li>Import Library</li>
-<li>State Variables and Data Types</li>
-<li>Function</li>
-<li>Operators</li>
-<li>Control Structures and Loop</li>
-<li>Modifier</li>
-<li>Event</li>
-<li>Constructor</li>
-</ul>
-<p><strong>Module 4 Ethereum Smart Contracts</strong> </p>
-<ul>
-<li>What is Smart Contract</li>
-<li>Applications of Smart Contracts</li>
-<li>A Inheritance Smart Contract Demo</li>
-</ul>
-<p><strong>Module 5 Ethereum Token Systems and ICO</strong></p>
-<ul>
-<li>Tokens and ICO</li>
-<li>Simple Token System Demo</li>
-<li>ERC20 Standard Tokens</li>
-</ul>
+</div>
 
+![Course cover hero](courseware/assets/cover-hero-v7.png)
 
+## About
 
+This repository contains the learner-facing and trainer-facing public courseware for **TGS-2024045220**. The course develops human-led generative-AI visual communication through Adobe Firefly and editable Photoshop workflows.
 
+The v7 package includes:
 
+- a 114-slide visual PowerPoint deck with five editable native charts;
+- an aligned Learner Guide with detailed lab procedures;
+- a two-day Lesson Plan with current slide references;
+- ten individual lab folders containing Photoshop and/or JPEG source files;
+- current Adobe help and product-term sources; and
+- no practice exam.
+
+## Learning outcomes
+
+Learners will be able to:
+
+1. initiate visual communication through generative AI in Photoshop and Firefly;
+2. create Firefly storyboards for visual narratives and task flows;
+3. propose enhancements through aesthetic analysis and advanced critique in Photoshop; and
+4. formulate generative-AI colour strategies in Photoshop.
+
+## Courseware structure
+
+```text
+.
+├── courseware/
+│   ├── Generative-AI-Visuals-in-Photoshop-and-Firefly-v7.pptx
+│   ├── Generative-AI-Visuals-in-Photoshop-and-Firefly-v7.pdf
+│   ├── LG-Generative-AI-Visuals-in-Photoshop-and-Firefly.docx
+│   ├── LG-Generative-AI-Visuals-in-Photoshop-and-Firefly.pdf
+│   ├── LP-Generative-AI-Visuals-in-Photoshop-and-Firefly.docx
+│   └── LP-Generative-AI-Visuals-in-Photoshop-and-Firefly.pdf
+├── labs/
+│   ├── lab-01-prompt-to-image-visual-brief/
+│   ├── ...
+│   └── lab-10-wellness-campaign-capstone/
+├── LEARNER-GUIDE.md
+└── CHANGELOG.md
+```
+
+Each lab folder is self-contained. Read its `README.md` or `README.pdf`, preserve the supplied originals, and save the layered PSD plus verified JPEG evidence requested by the guide.
+
+## Lab sequence
+
+| Lab | Focus |
+|---:|---|
+| 01 | Prompt-to-Image Visual Brief |
+| 02 | Design Principles and Prompt Refinement |
+| 03 | Composition and Style References |
+| 04 | Storyboard and Task Flow |
+| 05 | Generative Fill: Directed Inpainting |
+| 06 | Background Replacement and Harmonize |
+| 07 | Generative Expand for Channel Ratios |
+| 08 | Reference Image and Multi-Prompt Composition |
+| 09 | Restoration, Critique and Colour Strategy |
+| 10 | Wellness Campaign Capstone |
+
+## Public-release boundary
+
+Assessment papers, answer keys, reference sources, build tooling, QA renders and environment files are intentionally excluded from this public repository. Answer keys remain trainer-only in controlled storage.
+
+## Developed by
+
+Tertiary Infotech Academy Pte Ltd  
+UEN: 201200789K
+
+Adobe, Adobe Firefly and Adobe Photoshop are trademarks of Adobe. This WSQ course does not constitute Adobe certification or endorsement.

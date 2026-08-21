@@ -1,0 +1,8 @@
+.env
+.claude/
+assessment/
+reference/
+courseware/build/
+qa/
+**/.DS_Store
+**/~$*
