@@ -1,4 +1,4 @@
-# Source Coverage — v7
+# Source Coverage — v8
 
 Course: Generative AI (GenAI) Visuals in Photoshop and Firefly (TGS-2024045220)
 
@@ -22,7 +22,7 @@ Course: Generative AI (GenAI) Visuals in Photoshop and Firefly (TGS-2024045220)
 
 ## Output map
 
-- Slides: `Generative-AI-Visuals-in-Photoshop-and-Firefly-v7.pptx` (114 slides)
+- Slides: `Generative-AI-Visuals-in-Photoshop-and-Firefly-v8.pptx` (210 slides)
 - Learner Guide: `courseware/LG-Generative-AI-Visuals-in-Photoshop-and-Firefly.docx` and `LEARNER-GUIDE.md`
 - Lesson Plan: `courseware/LP-Generative-AI-Visuals-in-Photoshop-and-Firefly.docx`
 - Labs: `labs/lab-01-*` through `labs/lab-10-*`; every folder includes Photoshop and/or JPEG assets.

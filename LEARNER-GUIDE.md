@@ -1,7 +1,7 @@
 # Generative AI (GenAI) Visuals in Photoshop and Firefly — Learner Guide
 
 **Course code:** TGS-2024045220
-**Version:** v7 · 21 August 2026
+**Version:** v8 · 13 October 2026
 
 ## Purpose
 
@@ -291,17 +291,17 @@ A task flow assigns inputs, decisions, hand-offs and review gates so visual work
 
 **Quality evidence:** A flow diagram identifies ownership and acceptance at each gate.
 
-### Text Effects and Template Ideation
+### Generated Texture with Editable Photoshop Type
 
-Text effects and template-oriented generation can establish art direction, but final copy remains editable in the design tool.
+Generate a rights-aware texture as imagery. Keep editable type as the base layer, place the generated texture immediately above it, and clip the texture to the type so the letterforms control visibility without rasterising the text.
 
-**Best used for:** Exploring campaign style, title treatment and modular layouts.
+**Best used for:** Creating expressive display typography while keeping wording, font, colour and fit editable.
 
-**Key controls:** Short display phrase · material/style · legibility · editability
+**Key controls:** Texture prompt · live type base layer · texture layer above · clipping mask · scale/position · colour overlay · tracking · legibility
 
-**Watch for:** Embedding essential long-form copy inside generated pixels.
+**Watch for:** Reversing the clipping stack, treating generated pixels as editable copy, using obsolete Text Effects interfaces, or losing contrast at delivery size.
 
-**Quality evidence:** Final deliverable uses editable type and passes a legibility check.
+**Quality evidence:** The PSD retains a live type base layer, clipped texture layer immediately above it and named colour/fit controls; the reopened export passes a thumbnail legibility check.
 
 ### Lab 03 — Composition and Style References
 

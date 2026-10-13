@@ -1,85 +1,78 @@
-<div align="center">
+# Generative AI for Photoshop
 
-# Generative AI (GenAI) Visuals in Photoshop and Firefly
+Create purposeful visuals with Adobe Firefly and refine editable image compositions in Adobe Photoshop.
 
-[![Course](https://img.shields.io/badge/WSQ-TGS--2024045220-224AF4)](https://www.tertiarycourses.com.sg/wsq-generative-ai-genai-visuals-in-photoshop-and-firefly.html)
-![PowerPoint](https://img.shields.io/badge/PowerPoint-editable%20charts-EA4335)
-![Labs](https://img.shields.io/badge/labs-10-00A67E)
-![Version](https://img.shields.io/badge/courseware-v7-7C3AED)
+[**View course details and register**](https://www.tertiarycourses.com.sg/wsq-generative-ai-for-photoshop.html)
 
-**Source-aligned trainer slides, Learner Guide, Lesson Plan and self-contained Photoshop/Firefly labs.**
+| Course detail | Information |
+|---|---|
+| Course code | `TGS-2024045220` |
+| Programme | WSQ |
+| Duration | 2 days; 16 hours in the courseware, including 2 hours of assessment |
+| Registration | [View course details and register](https://www.tertiarycourses.com.sg/wsq-generative-ai-for-photoshop.html) |
+| Funding | Up to 70% course fee funding for eligible learners and employers, as shown on the official course page. Eligibility and terms apply. |
 
-[Course page](https://www.tertiarycourses.com.sg/wsq-generative-ai-genai-visuals-in-photoshop-and-firefly.html) · [Open lab folders](labs/README.md) · [Learner Guide](LEARNER-GUIDE.md)
+![Creative Photoshop and Firefly workshop visual](courseware/assets/cover-hero-v8.png)
 
-</div>
+## About the course
 
-![Course cover hero](courseware/assets/cover-hero-v7.png)
+Develop human-led generative AI visual communication through Adobe Firefly and editable Photoshop workflows. Translate a brief into prompt variations and storyboards, integrate generated imagery with layers and masks, critique the results, and apply a reversible colour strategy.
 
-## About
-
-This repository contains the learner-facing and trainer-facing public courseware for **TGS-2024045220**. The course develops human-led generative-AI visual communication through Adobe Firefly and editable Photoshop workflows.
-
-The v7 package includes:
-
-- a 114-slide visual PowerPoint deck with five editable native charts;
-- an aligned Learner Guide with detailed lab procedures;
-- a two-day Lesson Plan with current slide references;
-- ten individual lab folders containing Photoshop and/or JPEG source files;
-- current Adobe help and product-term sources; and
-- no practice exam.
+The courseware title is **Generative AI (GenAI) Visuals in Photoshop and Firefly**. The assessed Skills Framework competency is **Visual Communication — DSN-COM-4005-1.1**.
 
 ## Learning outcomes
 
-Learners will be able to:
+By the end of the course, learners will be able to:
 
-1. initiate visual communication through generative AI in Photoshop and Firefly;
-2. create Firefly storyboards for visual narratives and task flows;
-3. propose enhancements through aesthetic analysis and advanced critique in Photoshop; and
-4. formulate generative-AI colour strategies in Photoshop.
+1. Initiate visual communication through generative AI in Photoshop and Firefly.
+2. Create Firefly storyboards for visual narratives and task flows.
+3. Propose enhancements through aesthetic analysis and advanced critique in Photoshop.
+4. Formulate generative AI colour strategies in Photoshop.
 
-## Courseware structure
+## Topics covered
 
-```text
-.
-├── courseware/
-│   ├── Generative-AI-Visuals-in-Photoshop-and-Firefly-v7.pptx
-│   ├── Generative-AI-Visuals-in-Photoshop-and-Firefly-v7.pdf
-│   ├── LG-Generative-AI-Visuals-in-Photoshop-and-Firefly.docx
-│   ├── LG-Generative-AI-Visuals-in-Photoshop-and-Firefly.pdf
-│   ├── LP-Generative-AI-Visuals-in-Photoshop-and-Firefly.docx
-│   └── LP-Generative-AI-Visuals-in-Photoshop-and-Firefly.pdf
-├── labs/
-│   ├── lab-01-prompt-to-image-visual-brief/
-│   ├── ...
-│   └── lab-10-wellness-campaign-capstone/
-├── LEARNER-GUIDE.md
-└── CHANGELOG.md
-```
+1. **Generative AI for visual communication:** prompt anatomy and refinement, hierarchy, balance, contrast, audience and responsible provenance.
+2. **Adobe Firefly:** content types and styles, composition and style references, colour and lighting, creative variations, storyboards and task flows; generated textures with editable Photoshop type, colour and fitting.
+3. **Adobe Photoshop:** selections and masks, Generative Fill, object insertion and removal, background integration, staged prompts, Generative Expand, inpainting and outpainting.
+4. **Enhancement and delivery:** visual critique, restoration limits, colour correction, role-based palettes, editable masters and verified channel exports.
 
-Each lab folder is self-contained. Read its `README.md` or `README.pdf`, preserve the supplied originals, and save the layered PSD plus verified JPEG evidence requested by the guide.
+## Labs
 
-## Lab sequence
+Each lab has its own guide and supplied assets. Detailed procedures and acceptance checks are in the [Learner Guide](LEARNER-GUIDE.md) and each lab folder.
 
-| Lab | Focus |
-|---:|---|
-| 01 | Prompt-to-Image Visual Brief |
-| 02 | Design Principles and Prompt Refinement |
-| 03 | Composition and Style References |
-| 04 | Storyboard and Task Flow |
-| 05 | Generative Fill: Directed Inpainting |
-| 06 | Background Replacement and Harmonize |
-| 07 | Generative Expand for Channel Ratios |
-| 08 | Reference Image and Multi-Prompt Composition |
-| 09 | Restoration, Critique and Colour Strategy |
-| 10 | Wellness Campaign Capstone |
+- [Lab 01 — Prompt-to-Image Visual Brief](labs/lab-01-prompt-to-image-visual-brief/README.md)
+- [Lab 02 — Design Principles and Prompt Refinement](labs/lab-02-design-principles-prompt-refinement/README.md)
+- [Lab 03 — Composition and Style References](labs/lab-03-composition-and-style-references/README.md)
+- [Lab 04 — Storyboard and Task Flow](labs/lab-04-storyboard-and-task-flow/README.md)
+- [Lab 05 — Generative Fill: Directed Inpainting](labs/lab-05-generative-fill/README.md)
+- [Lab 06 — Background Replacement and Harmonize](labs/lab-06-background-and-harmonize/README.md)
+- [Lab 07 — Generative Expand for Channel Ratios](labs/lab-07-generative-expand-channel-ratios/README.md)
+- [Lab 08 — Reference Image and Multi-Prompt Composition](labs/lab-08-reference-image-composition/README.md)
+- [Lab 09 — Restoration, Critique and Colour Strategy](labs/lab-09-restoration-critique-colour/README.md)
+- [Lab 10 — Wellness Campaign Capstone](labs/lab-10-wellness-campaign-capstone/README.md)
 
-## Public-release boundary
+## Public package
 
-Assessment papers, answer keys, reference sources, build tooling, QA renders and environment files are intentionally excluded from this public repository. Answer keys remain trainer-only in controlled storage.
+Current release: **v8 — 13 October 2026**, with 210 slides, 20 annotated asset exhibits, five editable charts, an aligned Learner Guide and Lesson Plan, and ten labs.
 
-## Developed by
+- [Trainer slides — PowerPoint](courseware/Generative-AI-Visuals-in-Photoshop-and-Firefly-v8.pptx)
+- [Learner slides — PDF](courseware/Generative-AI-Visuals-in-Photoshop-and-Firefly-v8.pdf)
+- [Learner Guide — Word](courseware/LG-Generative-AI-Visuals-in-Photoshop-and-Firefly.docx)
+- [Learner Guide — PDF](courseware/LG-Generative-AI-Visuals-in-Photoshop-and-Firefly.pdf)
+- [Learner Guide — Markdown](LEARNER-GUIDE.md)
+- [Lesson Plan — Word](courseware/LP-Generative-AI-Visuals-in-Photoshop-and-Firefly.docx)
+- [Lesson Plan — PDF](courseware/LP-Generative-AI-Visuals-in-Photoshop-and-Firefly.pdf)
+- [All ten lab folders](labs/README.md)
 
-Tertiary Infotech Academy Pte Ltd  
-UEN: 201200789K
+Open the supplied originals and save your work in a separate learner workspace. Adobe software and account access are required; these labs are not browser-only exercises. Keep generated content on named layers and retain the prompt and verification evidence required by each lab.
+
+## Public and private distribution
+
+This repository publishes the current slides, Learner Guide, Lesson Plan and learner lab assets. Assessment papers and answer keys remain in controlled distribution and are excluded from GitHub, together with original source references and credentials. Superseded releases are archived locally and on Drive.
+
+## Provider
+
+Tertiary Infotech Academy Pte Ltd — UEN **201200696W**.
+[Official course registration](https://www.tertiarycourses.com.sg/wsq-generative-ai-for-photoshop.html)
 
 Adobe, Adobe Firefly and Adobe Photoshop are trademarks of Adobe. This WSQ course does not constitute Adobe certification or endorsement.

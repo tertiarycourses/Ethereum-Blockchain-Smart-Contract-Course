@@ -1,8 +1,21 @@
-.env
-.claude/
+# Private assessment papers, answer keys and original reference sources
 assessment/
 reference/
-courseware/build/
-qa/
+# Superseded versions and render outputs
+**/archive/
+# Secrets
+.env
+.env.*
+**/.env
+**/.env.*
+**/lms_tms_api_key
+*.pem
+*.key
+# Regenerated dependencies and operating-system files
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
 **/.DS_Store
 **/~$*

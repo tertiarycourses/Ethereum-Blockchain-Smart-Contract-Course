@@ -1,12 +1,18 @@
 # Changelog
 
+## v8 — 13 October 2026
+
+- Expanded the trainer deck to 210 substantive slides for the two-day course.
+- Removed only the requested Adobe Express text-effects and Text to Template subtopics.
+- Retained creative text treatment through a current workflow: generated texture plus editable Photoshop type, clipping mask, colour, fitting and legibility controls.
+- Added editable worked-artifact flows, annotated control/canvas/proof models and diagnostic panels for every retained concept.
+- Added a new original cover hero and preserved all ten lab folders and supplied assets.
+- Regenerated the Learner Guide and Lesson Plan from the same source; detailed procedures remain outside the PPT.
+- Kept the approved WA/PP timing and competency structure; no practice exam was added.
+
 ## v7 — 21 August 2026
 
-- Rebuilt the legacy v6 trainer material as a 114-slide, four-topic visual deck with current Adobe Firefly and Photoshop sources.
-- Added 32 concept pairs, editable native PowerPoint charts and source-aligned visual examples.
-- Created ten self-contained labs; every lab contains Photoshop and/or JPEG source files, detailed procedures, evidence and acceptance criteria.
-- Regenerated the Learner Guide and Lesson Plan from the same source; click-by-click procedures remain outside the PPT.
-- Aligned WA/PP timing to the live two-hour assessment configuration; no practice exam was added.
+- Source-aligned 114-slide visual rebuild with 32 concepts and ten self-contained labs.
 
 ## v6 — Legacy
 
